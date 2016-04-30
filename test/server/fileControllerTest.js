@@ -133,52 +133,52 @@ describe('Config Controller', function () {
   });
 
 
-  it('should remove the user with the given id from the database', function (done) {
-    User.findOne({ name: 'Zach' }, function(err, user) {
+  it('should remove the config with the given data from the database', function (done) {
+    Config.findOne({ data: 'this is the data' }, function(err, config) {
       expect(err).to.equal(null);
-      var userid = user.id;
+      var id = config.id;
       var request = httpMocks.createRequest({
         method: 'DELETE',
-        url: '/user',
-        params: { id: userid },
+        url: '/config',
+        params: { id: id },
       });
       var response = httpMocks.createResponse();
-      userController.removeOne(request, response);
-      User.findOne({ name: 'Zach' }, function(err, user) {
+      configController.removeOne(request, response);
+      Config.findOne({ data: 'this is the data' }, function(err, config) {
       expect(err).to.equal(null);
         done();
       });
     });
   });
 
-  it('should retrieve the user with the given id from the database', function (done) {
-    User.findOne({ name: 'Zach' }, function(err, user) {
+  it('should retrieve the config with the given data from the database', function (done) {
+    Config.findOne({ data: 'this is also the data' }, function(err, config) {
       expect(err).to.equal(null);
-      var userid = user.id;
+      var id = config.id;
       var request = httpMocks.createRequest({
         method: 'GET',
-        url: '/user',
-        params: { id: userid }
+        url: '/config',
+        params: { id: id }
       });
       var response = httpMocks.createResponse();
-      userController.retrieveOne(request, response, function(err, data) {
-        expect(data.name).to.equal('Zach');
+      configController.retrieveOne(request, response, function(err, config) {
+        expect(config.data).to.equal('this is also the data');
         done();
       });
     });
   })
 
-  it('should retrieve all the users from the database', function (done) {
-    User.findOne({ name: 'Zach' }, function(err, user) {
+  it('should retrieve all the config data from the database', function (done) {
+    Config.findOne({ data: 'this is also the data' }, function(err, config) {
       expect(err).to.equal(null);
-      var userid = user.id;
+      var id = config.id;
       var request = httpMocks.createRequest({
         method: 'GET',
-        url: '/user',
+        url: '/config',
       });
       var response = httpMocks.createResponse();
-      userController.retrieveAll(request, response, function(err, data) {
-        expect(data.length).to.equal(5);
+      configController.retrieveAll(request, response, function(err, data) {
+        expect(data.length).to.equal(2);
         done();
       });
 
