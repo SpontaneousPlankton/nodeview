@@ -102,31 +102,31 @@ describe('Config Controller', function () {
     Config.findOne({data:'this is the data'}, function(err, config) {
       var id = config.id;
       configController.createOne(request, response);
-      Config.findOne({data: 'this is the data'}, function(err, user) {
+      Config.findOne({data: 'this is the data'}, function(err, config) {
         expect(err).to.equal(null);
-        expect(user.data).to.equal('this is the data');
+        expect(config.data).to.equal('this is the data');
         done();
       });
     });
   });
 
-  it('should update the attributes of the given user', function (done) {
-    User.findOne({ name: 'Zach' }, function(err, user) {
+  it('should update the attributes of the given config', function (done) {
+    Config.findOne({ data: 'this is the data'}, function(err, config) {
       expect(err).to.equal(null);
-      var userid = user.id;
+      var id = config.id;
       var request = httpMocks.createRequest({
         method: 'PUT',
-        url: '/user',
-        params: { id: userid },
+        url: '/config',
+        params: { id: id },
         body: {
-          email: 'notzach@zach.com'
+         data: 'this is NOT the data'
         },
       });
       var response = httpMocks.createResponse();
-      userController.updateOne(request, response);
-      User.findOne({ name: 'Zach' }, function(err, user) {
+      configController.updateOne(request, response);
+      Config.findOne({ data: 'this is NOT the data'}, function(err, config) {
         expect(err).to.equal(null);
-        expect(user.email).to.equal('notzach@zach.com');
+        expect(config.data).to.equal('this is NOT the data');
         done();
       });
     });
