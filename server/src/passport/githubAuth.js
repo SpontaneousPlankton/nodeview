@@ -2,8 +2,6 @@ import passport from 'passport';
 import { Strategy } from 'passport-github';
 import User from './../models/user.js';
 import { GITHUB_ID, GITHUB_SECRET } from './../GITHUBKEYS.js';
-import userController from './../controllers/userController.js';
-import mongoose from 'mongoose';
 
 export default {
   handleLogin: passport.authenticate('github'),
@@ -16,9 +14,6 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  // User.findById(id, (err, user) => {
-  //   done(err, user);
-  // });
   done(null, id);
 });
 
@@ -36,9 +31,10 @@ passport.use(new Strategy({
   console.log(profile.username + ': login successful' + ' with access token: ' + accessToken);
   done(null, profile); // Reports a successful authentication to successfulRedirect
 
-  User.findOne({ githubID: profile.id }, (err, existingUser) => {
+  User.findOne({ githubID: profile.username }, (err, existingUser) => {
     if (existingUser) {
       // Login the user
+      console.log('User found, login user');
       done(null, existingUser);
     } else {
       // user not found, store to database
