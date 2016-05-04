@@ -7,6 +7,7 @@
   "dependencies": {
     "app-root-path": "^1.0.0",
     "babel-polyfill": "6.6.1",
+    "babel-register": "^6.8.0",
     "babel-runtime": "6.6.1",
     "bluebird": "3.3.3",
     "body-parser": "1.15.0",

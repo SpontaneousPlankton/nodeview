@@ -1,4 +1,4 @@
-import { buildMainFile } from '../../../../server/build/controllers/expressBuild/buildMainFile.js';
+import { buildMainFile } from './buildMainFile.js';
 
 export function buildFile(fileConfig, userConfig) {
   // build main server file
