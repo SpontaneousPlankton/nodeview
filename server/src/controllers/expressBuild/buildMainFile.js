@@ -16,15 +16,14 @@ function addServerListen(name, port) {
 
 export function buildMainFile(fileConfig, userConfig) {
   let file = '';
-  // instantiate express
   const expressName = userConfig.serverSettings.expressName || 'app';
+  const name = userConfig.appName || 'myApp';
+  const port = userConfig.serverSettings.port || 8000;
+  // instantiate express
   file += addExpress(expressName);
   // check for middleware
   if (userConfig.middleware) { file += addMiddleware(); }
   // server listen
-  const name = userConfig.appName || 'myApp';
-  const port = userConfig.serverSettings.port || 8000;
   file += addServerListen(name, port);
-  console.log(file);
   return file;
 }

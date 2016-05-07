@@ -1,0 +1,18 @@
+# Proposed changes
+
+## Description
+
+A description of the new feature you are proposing
+
+## Issue
+If applicable: description of the bug
+
+### Fixes
+If resolving an issue, describe your fix here
+
+## files changed:
+- a list
+- of files
+
+Packages added:
+- supertest

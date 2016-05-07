@@ -2,12 +2,14 @@ const chai = require('chai');
 chai.should();
 const expect = require('chai').expect;
 const { it } = require('arrow-mocha/es5');
+import httpMocks from 'node-mocks-http';
 
-import { buildFile } from '../../../../server/build/controllers/expressBuild/buildFile.js';
+import { buildFile, buildAllFiles } from '../../../../server/build/controllers/expressBuild/buildFiles.js';
 
 describe('File Builder', () => {
   const fileConfig = {
     type: 'main',
+    name: 'server.js',
   };
   const userConfig = {
     serverType: 'node-express',
@@ -17,7 +19,34 @@ describe('File Builder', () => {
       expressName: 'app',
     },
   };
-  it('should call not return an error when called on the main server file', () => {
+    const request = httpMocks.createRequest({
+      method: 'POST',
+      url: '/config',
+      body: {
+        data: {
+          serverType: 'node-express',
+          serverSettings: {
+            port: 8000,
+            expressName: 'app',
+          },
+        },
+      },
+      session: {
+        files: {
+          serverJS: {
+            type: 'main',
+            name: 'server.js',
+          },
+        },
+      },
+    });
+  describe('Build All files', () => {
+    it('should build all files and save them to an array', () => {
+      const response = httpMocks.createResponse();
+      expect(buildAllFiles(request, response)).to.contain('var app = require (\'express\');\napp.listen(8000, function () {console.log(\'myApp listening on port 8000\');');
+    });
+  });
+  it('should call not return an error when building the main server file', () => {
     expect(buildFile(fileConfig, userConfig)).to.not.be.an('error');
   });
 

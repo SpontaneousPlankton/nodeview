@@ -69,35 +69,35 @@ module.exports = {
     });
   },
 
-  signin: (req, res, next) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    const name = req.body.name;
+  // signin: (req, res, next) => {
+  //   const email = req.body.email;
+  //   const password = req.body.password;
+  //   const name = req.body.name;
 
-    User.findOne({ email: email }, (err, user) => {
-      if (!user) {
-        console.log('User does not exist ', err);
-        const newUser = new User({ email: email, name: name, password: password })
-        .save();
-        next(newUser);
-      } else {
-        next(user);
-      }
-    });
-  },
-  checkAuth: (req, res, next) => {
-    const token = req.headers['x-access-token'];
-    if (!token) {
-      next(new Error('No token'));
-    } else {
-      const user = jwt.decode(token);
-      User.findOne({email: email}, (err, foundUser) => {
-        if (foundUser) {
-          res.send(200);
-        } else {
-          res.send(401);
-        }
-      });
-    }
-  },
+  //   User.findOne({ email: email }, (err, user) => {
+  //     if (!user) {
+  //       console.log('User does not exist ', err);
+  //       const newUser = new User({ email: email, name: name, password: password })
+  //       .save();
+  //       next(newUser);
+  //     } else {
+  //       next(user);
+  //     }
+  //   });
+  // },
+  // checkAuth: (req, res, next) => {
+  //   const token = req.headers['x-access-token'];
+  //   if (!token) {
+  //     next(new Error('No token'));
+  //   } else {
+  //     const user = jwt.decode(token);
+  //     User.findOne({email: email}, (err, foundUser) => {
+  //       if (foundUser) {
+  //         res.send(200);
+  //       } else {
+  //         res.send(401);
+  //       }
+  //     });
+  //   }
+  // },
 };

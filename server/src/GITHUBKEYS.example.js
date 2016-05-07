@@ -1,0 +1,4 @@
+// THESE ARE DISPOSABLE KEYS, REPLACE THEM WITH YOUR OWN AND REMOVE .example from file name
+
+export const GITHUB_ID = 'cb448b1d4f0c743a1e36';
+export const GITHUB_SECRET = '815aa4606f476444691c5f1c16b9c70da6714dc6';

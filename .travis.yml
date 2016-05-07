@@ -1,24 +1,26 @@
 sudo: false
 language: node_js
 node_js:
-  - '5.8'
+- '5.8'
 services:
-    - mongodb
+- mongodb
 before_script:
-  - npm install -g webpack
-  - npm install -g karma-cli
-  - npm install -g mocha
-  - npm install -g chai
-  - npm run build-server
-    #Configure virtual frame buffer for browser testing
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
+- npm install -g webpack
+- npm install -g karma-cli
+- npm install -g mocha
+- npm install -g chai
+- npm run build-server
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sleep 3
 env:
+  matrix:
   - CXX=g++-4.8
+  global:
+    secure: DcPQKdm263mDLwkGZ7WJViYhgC0Jl66pc/d+RbII0RmnxmqqF9uzbCXFzPYeNp1Xn4Z8nyQW4JLiVsU2UiiZr9yrgKnnGERw0X8P1Lv+D0b2L9VlMm8Xstzt6YkUbKx3jS993yI79wKQYh4GfNicBA2hXaH9QFgIP/e+wdLRn3vtW4L0ZDr21utlCQ9TvZ0cVgKB/j1sDOKS11nG5lMZga6SNFt1AQOREP4TKhHOWlRS0spUtfvDrW4+pnfvQp1t0rxZxyw714z4xOzb04JONGkgLZ56jZdJ9xb9I48JkrEUMA4o+yAIDdOnlpfw3tPXt5GzF3nqEMFKdrXIdAqKTXb+4NohZGew6nDKm16dOB1oa3Ju/vSTHmu90qGEuBGikt+6smeBQgBiOxwbbfft8cO5UZnH6KccrKA/8GxLCAivT6DjNHwoT/77KULh+eMF5jvDAX76wu0fyoozaryMuqtpWWX2+bl4neHBFudKbh2SscvEBdIJNWTHO3MJA7pFQhUixYY0XKI17fddzPiUkzs4+CwqTnD/xPPOPAZG4ZZEQjLizQnaIWwHd2eSUSgXhfv2Zx7UbTh1G30IuKv4MZPNG5hswc13OE2BqS34prnqhUTPRSO13GDlqBgCh31qtF6287++dnTyDdk/WR5sTQ8nl+LBcGTQpmSxuldLn1c=
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
+    - g++-4.8
