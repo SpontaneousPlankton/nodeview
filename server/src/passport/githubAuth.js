@@ -30,7 +30,6 @@ passport.use(new Strategy({
 }, (req, accessToken, refreshToken, tokenDetails, profile, done) => {
   // refreshToken is not provided by GitHub
   console.log(`${profile.username}: login successful with access token:${accessToken}`);
-  done(null, profile); // Reports a successful authentication to successfulRedirect
 
   // Use JWT to encrypt token with secret (change and secure secret in production)
   const token = jwt.sign({
