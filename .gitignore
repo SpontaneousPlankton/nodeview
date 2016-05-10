@@ -1,5 +1,5 @@
-server/build
-client/build
+server/build/**
+client/build/**
 node_modules
 ncp-debug.log
 npm-debug.log

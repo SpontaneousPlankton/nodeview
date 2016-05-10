@@ -1,6 +1,6 @@
 import githubAuth from './../passport/githubAuth';
-import { generateServer } from '../controllers/generateServer.js';
-
+import { generateServer } from '../controllers/generateServer';
+import { getUser } from './../models/userController';
 
 module.exports = (app, express) => {
   app.use(express.static(`${__dirname}/../../../../client`));
@@ -12,8 +12,12 @@ module.exports = (app, express) => {
     res.cookie('user', req.user._json.login);
     res.cookie('logged_in', true);
     res.cookie('user_session', req.user.token);
+    res.cookie('id', req.user.id);
     res.redirect('/');
   });
+
+  app.get('/api/users', getUser);
+
   app.post('/config', generateServer);
 };
 

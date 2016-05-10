@@ -4,6 +4,8 @@ import React from 'react';
 import Nav from './partials/Nav.js';
 import Sidebar from './partials/design/Sidebar.js';
 import CanvasContainer from './partials/design/CanvasContainer.js';
+import Form from './partials/design/Form.js';
+
 
 // Import React DnD
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -14,7 +16,8 @@ import { DragDropContext } from 'react-dnd';
 export default class Design extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+    };
   }
 
   render() {
@@ -22,10 +25,8 @@ export default class Design extends React.Component {
       <div className="container">
         <Nav />
         <div className="content">
-          <div className="row">
           <Sidebar />
           <CanvasContainer />
-        </div>
         </div>
       </div>
    );

@@ -21,3 +21,31 @@ export function moveRouter({ sourceId, targetId }) {
     targetId,
   };
 }
+
+export const CREATE_ENDPOINT = 'CREATE_ENDPOINT';
+export function createEndpoint(endpoint) {
+  return {
+    type: CREATE_ENDPOINT,
+    routerId: endpoint.routerId,
+    endpoint: {
+      id: uuid.v4(),
+      endpoint: '/myNewEndpoint',
+      methods: [],
+      ...endpoint,
+    },
+  };
+}
+
+export const MOVE_ENDPOINT = 'MOVE_ENDPOINT';
+export function moveEndpoint({ sourceId, targetId, sourceEndpointIndex, targetEndpointIndex, sourceRouterIndex, targetRouterIndex }) {
+  console.log('All the things: ', sourceId, targetId, sourceEndpointIndex, targetEndpointIndex, sourceRouterIndex, targetRouterIndex);
+  return {
+    type: MOVE_ENDPOINT,
+    sourceId,
+    targetId,
+    sourceEndpointIndex,
+    targetEndpointIndex,
+    sourceRouterIndex,
+    targetRouterIndex,
+  };
+}

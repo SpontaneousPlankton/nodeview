@@ -30,11 +30,14 @@ server.use(session({
 const pe = new PrettyError();
 pe.start();
 
+
+server.use(cookieParser()); // FOR DEV, STORE SECRET PROPERLY IN PROD
 server.use(express.static(`${__dirname}/../../client`));
 
-server.use(cookieParser('Hope nobody sees this')); // FOR DEV, STORE SECRET PROPERLY IN PROD
-
 server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({
+  extended: true,
+}));
 
 server.use(passport.initialize());
 router(server, express);

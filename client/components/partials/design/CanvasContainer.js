@@ -15,10 +15,8 @@ import { connect } from 'react-redux';
 }))
 export default class CanvasContainer extends React.Component {
   static propTypes = {
-    connectDropTarget: React.PropTypes.func.isRequired,
-    isOver: React.PropTypes.bool.isRequired,
-    isOverCurrent: React.PropTypes.bool.isRequired,
-    children: React.PropTypes.node,
+    createRouter: React.PropTypes.func.isRequired,
+    routers: React.PropTypes.array,
   }
 
   constructor(props) {
@@ -30,12 +28,15 @@ export default class CanvasContainer extends React.Component {
     const { createRouter, routers } = this.props;
     return (
       <div className="blockArea">
-      <a className="btn btn-default"
-        onClick={createRouter.bind(null, {
-          name: 'New router',
-        })}>
-      <i className="fa fa-plus" aria-hidden="true"></i> Add Router
-      </a>
+        <div className="canvasButtonContainer">
+          <button className="btn btn-primary"
+            onClick={createRouter.bind(null, {
+              name: 'New router',
+            })}
+          >
+          <i className="fa fa-plus" aria-hidden="true"></i> Add Router
+          </button>
+        </div>
 
       <ServerCanvas routers={routers} />
       </div>

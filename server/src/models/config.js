@@ -1,14 +1,17 @@
 import mongoose from 'mongoose';
-import relationship from 'mongoose-relationship';
+// import relationship from 'mongoose-relationship';
 // import User from '../models/user.js';
 
 const Schema = mongoose.Schema;
 const configSchema = new Schema({
-  userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', childPath: 'files' },
-  data: String,
+  // user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', childPath: 'githubID' },
+  data: { type: String },
 });
 
-configSchema.plugin(relationship, { relationshipPathName: 'userID' });
+configSchema.pre('save', (next) => {
+  next();
+});
+// configSchema.plugin(relationship, { relationshipPathName: 'user' });
 
 export default mongoose.model('Config', configSchema);
 
