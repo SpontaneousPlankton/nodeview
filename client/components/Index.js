@@ -7,6 +7,13 @@ export default class Index extends React.Component {
   }
 
   render() {
-    return (<div>adfasd</div>);
+    return (
+      <div>Hello
+        <button>Login with Github</button>
+        <img src="./../Octocat.jpg" />
+        <a href="/auth/github"><img src="./../GitHubLG.png" />
+        </a>
+      </div>
+    );
   }
 }

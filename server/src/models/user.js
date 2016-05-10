@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 export default mongoose.model('User', new Schema({
   name: String,
   email: String,
-  userID: String,
+  githubID: String,
   encryptedToken: String,
   id: Number,
   key: String,
