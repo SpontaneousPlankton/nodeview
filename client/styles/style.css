@@ -236,3 +236,28 @@ hr {
 .error {
 /*GO REID GO!!!*/
 }
+
+.jumbotron {
+  background-image: url('https://pixabay.com/static/uploads/photo/2014/07/10/10/20/golden-gate-bridge-388917_960_720.jpg');
+  background: aliceblue;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullscreen {
+  height: 100%;
+}
+
+.github {
+  height: 80px;
+  top: 400px;
+}
+
+.butler {
+  height: 350px;
+  top: 63px;
+}

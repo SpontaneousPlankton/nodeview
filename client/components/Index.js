@@ -8,11 +8,15 @@ export default class Index extends React.Component {
 
   render() {
     return (
-      <div>Hello
-        <button>Login with Github</button>
-        <img src="./../Octocat.jpg" />
-        <a href="/auth/github"><img src="./../GitHubLG.png" />
-        </a>
+      <div className="fullscreen">
+        <div className="jumbotron">
+          <img src="http://images.clipartpanda.com/butler-clipart-batman001.gif" className="butler" alt="PLACEHOLDER" />
+          <a href="/auth/github"><img src="./../GitHubLG.png" className="github" /></a>
+        </div>
+        <div className="about">
+          <h1>The standard Lorem Ipsum</h1>
+          <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h4>
+        </div>
       </div>
     );
   }
