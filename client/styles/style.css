@@ -240,6 +240,7 @@ hr {
 .jumbotron {
   background-image: url('https://pixabay.com/static/uploads/photo/2014/07/10/10/20/golden-gate-bridge-388917_960_720.jpg');
   background: aliceblue;
+  background-attachment: fixed;
   background-size: cover;
   height: 100vh;
   display: flex;

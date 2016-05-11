@@ -19,7 +19,7 @@ const AuthCheck = (nextState, redirect, callback) => {
   }).then(res => res.json()).then(user => {
     if (!user) {
       redirect({
-        pathname: '/*',
+        pathname: '/',
       });
       callback();
     }
