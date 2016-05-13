@@ -13,16 +13,17 @@ export function generateExpressServer(request, response) {
   }
   const builtFiles = buildAllFiles(request, response);
   // Send these files to github!
-  return response.send(JSON.stringify(builtFiles));
+  return response.json(builtFiles);
 }
 
 export function generateServer(request, response) {
   const reqData = request.body.data;
-  if (reqData && reqData.serverType && reqData.serverType === 'express') {
-    // generate express server
-    return generateExpressServer(request, response);
+  if (!reqData.serverType) {
+    return response.status(400).send('No server type on request');
   }
-  return response.status(400).send('No server type on request');
+
+  // generate express server
+  return generateExpressServer(request, response);
 }
 
 
@@ -35,9 +36,9 @@ export function createConfig(request, response) {
   });
   newConfig.save((err) => {
     if (err) {
-      response.json(err);
+      return response.status(500).json(err);
     }
-    response.send(JSON.stringify(newConfig));
+    response.json(newConfig);
   });
 }
 

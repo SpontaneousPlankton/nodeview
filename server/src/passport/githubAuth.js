@@ -9,7 +9,6 @@ export default {
   authenticateLogin: passport.authenticate('github', { failureRedirect: '/' }),
 };
 
-
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -55,7 +54,7 @@ passport.use(new Strategy({
       });
       newUser.save((err2, addedUser) => {
         if (err) {
-          return err;
+          return console.log(err);
         }
         console.log(`${addedUser} has been saved`);
         return addedUser;
@@ -63,4 +62,3 @@ passport.use(new Strategy({
     }
   });
 }));
-
