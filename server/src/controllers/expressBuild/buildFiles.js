@@ -4,13 +4,15 @@ import { buildRouterFile } from './buildRouterFile.js';
 import request from 'request';
 
 export function buildFile(fileConfig, userConfig) {
+  // fileConfig: files to be generated specified in request.session.files
+  // userConfig: all of the configuration in the request.body.data
   // build main server file
   if (fileConfig.type === 'main') {
     return buildMainFile(fileConfig, userConfig);
   } else if (fileConfig.type === 'router') {
-    return fileConfig.router.routes.forEach((value) => {
-      buildRouterFile(value.endPoint, value.method, value.action);
-    });
+    // return fileConfig.router.routes.forEach((value) => {
+    //   buildRouterFile(value.endPoint, value.method, value.action);
+    // });
     // return buildRouterFile(fileConfig, userConfig);
   }
   return new Error('Undefined file type');
@@ -26,7 +28,7 @@ export function buildAllFiles(req, res) {
       files.push(buildFile(req.session.files[fileName], req.body.data));
     }
   }
-  console.log(files);
+  // console.log(files);
   return files;
 }
 

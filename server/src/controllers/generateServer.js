@@ -1,5 +1,5 @@
 import { buildAllFiles } from './expressBuild/buildFiles.js';
-import Config from './../../models/config.js';
+import Config from './../models/config.js';
 
 export function generateExpressServer(request, response) {
   request.session.files = {
@@ -17,7 +17,7 @@ export function generateExpressServer(request, response) {
       // endPoint: router.endpoints,
     };
   });
-  console.log(request.session.files);
+  // console.log(request.session.files);
 
   const builtFiles = buildAllFiles(request, response);
   // Send these files to github!
@@ -26,7 +26,7 @@ export function generateExpressServer(request, response) {
 
 export function generateServer(request, response) {
   const reqData = request.body.data;
-  console.log(reqData);
+  // console.log(reqData);
   if (!reqData.serverType) {
     return response.status(400).send(new Error('No server type on request'));
   }

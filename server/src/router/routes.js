@@ -1,6 +1,5 @@
 import githubAuth from './../passport/githubAuth';
-import { createConfig } from '../controllers/generateServer';
-import { generateServer } from '../controllers/generateServer';
+import { createConfig, generateServer } from '../controllers/generateServer';
 
 import { getUser } from './../models/userController';
 

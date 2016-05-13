@@ -18,8 +18,8 @@ import { camelize } from '../../utils/utils.js';
 
 /* -------------------------- */
 
-function addExpress(expressName) {
-  return `var ${expressName} = require (\'express\');\n\n`;
+function addExpress() {
+  return `var express = require (\'express\');\n\n`;
 }
 
 // use imported middleware
@@ -27,10 +27,12 @@ function requireRouters(routers) {
   let fileString = '';
   routers.forEach(router => {
     const name = camelize(router.name);
-    fileString += `var ${name} = require('./${name}');\n\n`;
+    fileString += `var ${name} = require('./${name}');\n`;
   });
   return fileString;
 }
+
+const initializeExpress = () => '\nvar app = express();\n\n';
 
 // var routes = require('./routes/index');
 // var users = require('./routes/users');
@@ -40,28 +42,30 @@ function useRouters(routers) {
   let fileString = '';
   routers.forEach(router => {
     const name = camelize(router.name);
-    fileString += `app.use(\'${router.startPoint}\', ${name});\n\n`;
+    fileString += `app.use(\'${router.startPoint}\', ${name});\n`;
   });
   return fileString;
 }
 
 function addServerListen(name, port) {
-  return `app.listen(${port}, function () {console.log(\'${name} listening on port ${port}\');\n`;
+  return `\napp.listen(${port}, function () {\n\tconsole.log(\'${name} listening on port ${port}\');\n};\n`;
 }
 
 export function buildMainFile(fileConfig, userConfig) {
   let file = '';
-  const expressName = userConfig.serverSettings.expressName || 'app';
   const name = userConfig.appName || 'myApp';
   const port = userConfig.serverSettings.port || 8000;
   const routers = userConfig.routers || [];
-  // instantiate express
-  file += addExpress(expressName);
+  // require express
+  file += addExpress();
   // require router files
   file += requireRouters(routers);
+  // initialize express
+  file += initializeExpress();
   // use routers as middleware
   file += useRouters(routers);
   // server listen
   file += addServerListen(name, port);
+
   return file;
 }
