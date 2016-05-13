@@ -8,11 +8,17 @@ export function generateExpressServer(request, response) {
       name: 'server.js',
     },
   };
-  // for (const router in request.session.routers) {
-  //   if (router) {
-  //     request.session.files[router.name] = { type: 'router', name: router.name };
-  //   }
-  // }
+
+  request.body.data.routers.forEach(router => {
+    request.session.files[router.id] = {
+      type: 'router',
+      name: router.name,
+      // startPoint: router.startPoint,
+      // endPoint: router.endpoints,
+    };
+  });
+  console.log(request.session.files);
+
   const builtFiles = buildAllFiles(request, response);
   // Send these files to github!
   return response.json(builtFiles);
@@ -21,7 +27,7 @@ export function generateExpressServer(request, response) {
 export function generateServer(request, response) {
   const reqData = request.body.data;
   if (!reqData.serverType) {
-    return response.status(400).send('No server type on request');
+    return response.status(400).send(new Error('No server type on request'));
   }
 
   // generate express server
@@ -40,7 +46,7 @@ export function createConfig(request, response) {
     if (err) {
       return response.status(500).json(err);
     }
-    response.json(newConfig);
+    return response.json(newConfig);
   });
 }
 

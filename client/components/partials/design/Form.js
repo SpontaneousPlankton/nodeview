@@ -59,6 +59,7 @@ class Form extends React.Component {
         'Content-type': 'application/json',
       },
       body: JSON.stringify(jsonData),
+      credentials: 'same-origin',
     }).then(res => res.json()).then(data => {
       console.log(data);
     });

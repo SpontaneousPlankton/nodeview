@@ -1,5 +1,4 @@
 import { buildMainFile } from './buildMainFile.js';
-
 import { buildRouterFile } from './buildRouterFile.js';
 
 import request from 'request';
@@ -12,6 +11,7 @@ export function buildFile(fileConfig, userConfig) {
     return fileConfig.router.routes.forEach((value) => {
       buildRouterFile(value.endPoint, value.method, value.action);
     });
+    // return buildRouterFile(fileConfig, userConfig);
   }
   return new Error('Undefined file type');
 }
@@ -19,18 +19,18 @@ export function buildFile(fileConfig, userConfig) {
 export function buildAllFiles(req, res) {
   const files = [];
   if (!req.session.files) {
-    return res.status(400).json('Req.session.files not defined');
+    return res.status(400).json(new Error('Req.session.files not defined'));
   }
   for (const fileName in req.session.files) {
     if (fileName) {
       files.push(buildFile(req.session.files[fileName], req.body.data));
     }
   }
+  console.log(files);
   return files;
 }
 
 export function fileToGitHub(file, fileName, fileConfig, userConfig) {
-  // const file = buildFile(fileConfig, userConfig);
   const encodedFile = new Buffer(file).toString('base64');
 
   const repoOptions = {
