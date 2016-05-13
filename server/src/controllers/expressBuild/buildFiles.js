@@ -16,14 +16,16 @@ export function buildFile(fileConfig, userConfig) {
   return new Error('Undefined file type');
 }
 
-export function buildAllFiles(request, response) {
+export function buildAllFiles(req, res) {
   const files = [];
-  for (const fileName in request.session.files) {
+  if (!req.session.files) {
+    return res.status(400).json('Req.session.files not defined');
+  }
+  for (const fileName in req.session.files) {
     if (fileName) {
-      files.push(buildFile(request.session.files[fileName], request.body.data));
+      files.push(buildFile(req.session.files[fileName], req.body.data));
     }
   }
-  fileToGitHub(files[0], 'server.js', request.body.data);
   return files;
 }
 
@@ -38,7 +40,7 @@ export function fileToGitHub(file, fileName, fileConfig, userConfig) {
       'user-agent': 'AppButler',
       'cache-control': 'no-cache',
       'content-type': 'application/json',
-      authorization: 'token cbe36bee52b94370ba007fa1837841d4d23c1c42',
+      authorization: 'token TOKEN',
     },
     body: { name: `${fileConfig.serverSettings.appName}` },
     json: true,
@@ -46,33 +48,33 @@ export function fileToGitHub(file, fileName, fileConfig, userConfig) {
 
   request(repoOptions, (err, res, body) => {
     if (err) {
-      console.log(err);
-    } else {
-      console.log('Repo created');
-      const options = {
-        method: 'PUT',
-        url: `https://api.github.com/repos/dylanksys/${fileConfig.serverSettings.appName}/contents/${fileName}`,
-        headers: {
-          authorization: 'token cbe36bee52b94370ba007fa1837841d4d23c1c42',
-          'content-type': 'application/json',
-          'cache-control': 'no-cache',
-          'user-agent': 'AppButler',
-        },
-        body: JSON.stringify({
-          message: 'Initial Commit',
-          content: encodedFile,
-          committer: { name: 'AppButler', email: 'AppButler@AppButler.io' },
-          json: true,
-        }),
-      };
-
-      request(options, (err, res, body) => {
-        if (err) {
-          return console.log(err);
-        }
-        console.log('File generated');
-      });
+      return res.status(500).send(err);
     }
+    console.log('Repo created');
+    res.json(body);
+    const options = {
+      method: 'PUT',
+      url: `https://api.github.com/repos/dylanksys/${fileConfig.serverSettings.appName}/contents/${fileName}`,
+      headers: {
+        authorization: 'token TOKEN',
+        'content-type': 'application/json',
+        'cache-control': 'no-cache',
+        'user-agent': 'AppButler',
+      },
+      body: JSON.stringify({
+        message: 'Initial Commit',
+        content: encodedFile,
+        committer: { name: 'AppButler', email: 'AppButler@AppButler.io' },
+        json: true,
+      }),
+    };
+
+    return request(options, (err2, res2, body2) => {
+      if (err2) {
+        return res2.status(500).send(err2);
+      }
+      console.log('File generated');
+      return res2.json(body2);
+    });
   });
 }
-
