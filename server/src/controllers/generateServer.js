@@ -1,5 +1,5 @@
-import { buildAllFiles } from '../../build/controllers/expressBuild/buildFiles.js';
-import Config from '../../build/models/config.js';
+import { buildAllFiles } from './expressBuild/buildFiles.js';
+import Config from './../../models/config.js';
 
 export function generateExpressServer(request, response) {
   request.session.files = {
@@ -26,6 +26,7 @@ export function generateExpressServer(request, response) {
 
 export function generateServer(request, response) {
   const reqData = request.body.data;
+  console.log(reqData);
   if (!reqData.serverType) {
     return response.status(400).send(new Error('No server type on request'));
   }
