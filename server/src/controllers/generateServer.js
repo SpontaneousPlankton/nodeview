@@ -1,7 +1,7 @@
 import { buildAllFiles } from './expressBuild/buildFiles.js';
 import Config from './../models/config.js';
 
-export function generateExpressServer(request, response) {
+export function generateFiles(request, response) {
   request.session.files = {
     serverJS: {
       type: 'main',
@@ -30,7 +30,7 @@ export function generateServer(request, response) {
   }
 
   // generate express server
-  return generateExpressServer(request, response);
+  return generateFiles(request, response);
 }
 
 

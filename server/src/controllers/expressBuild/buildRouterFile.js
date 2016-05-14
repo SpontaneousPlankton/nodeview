@@ -16,6 +16,8 @@ export function buildRouterFile(fileConfig, routerConfig) {
 
   // Require and initialize express.Router:
   file += initializeRouter();
+  // Instructions for user:
+  file += `// Change API methods and endpoint methods to fit your needs\n`;
   // generate paths:
   file += generatePaths(startPoint, endpoints);
 
