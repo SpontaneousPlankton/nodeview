@@ -40,7 +40,7 @@ export function generate(request, response) {
         ind = ind || 0;
         if (ind !== filesArr.length) {
           createFile(filesArr[ind], request.body.data.routers[ind], request.body.data.cookies).then(() => {
-            asyncRun(ind + 1, filesArr);
+            asyncRun(filesArr, ind + 1);
           }).catch((routerErr) => {
             console.log(`Problem creating router files on your GitHub: Error: ${routerErr}`);
             response.status(400).send(`Problem creating router files on your GitHub: Error: ${routerErr}`);
@@ -49,8 +49,7 @@ export function generate(request, response) {
           return;
         }
       };
-      // invoke asyncRun
-      asyncRun(builtFiles[1]);
+      asyncRun(builtFiles[1], 0);
     }).catch(serverError => {
       console.log(`Error creating server ${serverError}`);
       response.status(400).send(`Error creating server: ${serverError}`);
@@ -59,7 +58,6 @@ export function generate(request, response) {
     console.log(`Problem creating repo on your GitHub: Error: ${error}`);
     response.status(400).send(`Problem creating repo on your GitHub: Error: ${error}`);
   });
-  // return response.json(builtFiles);
 }
 
 export function generateFiles(request, response) {

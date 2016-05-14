@@ -24,7 +24,7 @@ export function buildRouterFile(fileConfig, routerConfig) {
   file += `// Change API methods and endpoint methods to fit your needs\n`;
   // generate paths:
   file += generatePaths(startPoint, endpoints);
-
-  // file += `require(\'express\').Router().${method}(${endPoint}, ${action});`;
+  // export:
+  file += '\nmodule.exports = router\n';
   return file;
 }
