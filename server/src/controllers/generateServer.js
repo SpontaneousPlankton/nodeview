@@ -1,5 +1,4 @@
 import { buildAllFiles } from '../../build/controllers/expressBuild/buildFiles.js';
-import Config from '../../build/models/config.js';
 
 export function generateExpressServer(request, response) {
   request.session.files = {
@@ -26,18 +25,5 @@ export function generateServer(request, response) {
 }
 
 
-export function createConfig(request, response) {
-  const newConfig = new Config({
-    appName: request.body.appName,
-    port: request.body.port,
-    expressName: request.body.expressName,
-    serverType: request.body.serverType,
-  });
-  newConfig.save((err) => {
-    if (err) {
-      response.json(err);
-    }
-    response.send(JSON.stringify(newConfig));
-  });
-}
+
 

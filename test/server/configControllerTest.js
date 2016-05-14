@@ -1,5 +1,3 @@
-import User from '../../server/build/models/user.js';
-import userController from '../../server/build/controllers/userController.js';
 import Config from '../../server/build/models/config.js';
 import configController from '../../server/build/controllers/configController.js';
 
