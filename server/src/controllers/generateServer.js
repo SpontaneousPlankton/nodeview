@@ -9,14 +9,12 @@ export function generateExpressServer(request, response) {
     },
   };
 
-  request.body.data.routers.forEach(router => {
-    request.session.files[router.id] = {
+  if (request.body.data.routers.length) {
+    request.session.files.routers = {
       type: 'router',
-      name: router.name,
-      // startPoint: router.startPoint,
-      // endPoint: router.endpoints,
+      name: request.body.data.routers,
     };
-  });
+  }
   // console.log(request.session.files);
 
   const builtFiles = buildAllFiles(request, response);

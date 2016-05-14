@@ -10,10 +10,11 @@ export function buildFile(fileConfig, userConfig) {
   if (fileConfig.type === 'main') {
     return buildMainFile(fileConfig, userConfig);
   } else if (fileConfig.type === 'router') {
-    // return fileConfig.router.routes.forEach((value) => {
-    //   buildRouterFile(value.endPoint, value.method, value.action);
-    // });
-    // return buildRouterFile(fileConfig, userConfig);
+    const files = [];
+    userConfig.routers.forEach((router) => {
+      files.push(buildRouterFile(fileConfig, router));
+    });
+    return files;
   }
   return new Error('Undefined file type');
 }
@@ -23,12 +24,20 @@ export function buildAllFiles(req, res) {
   if (!req.session.files) {
     return res.status(400).json(new Error('Req.session.files not defined'));
   }
+
   for (const fileName in req.session.files) {
     if (fileName) {
-      files.push(buildFile(req.session.files[fileName], req.body.data));
+      const result = buildFile(req.session.files[fileName], req.body.data);
+      if (Array.isArray(result)) {
+        result.forEach(file => {
+          files.push(file);
+        });
+      } else {
+        files.push(result);
+      }
     }
   }
-  // console.log(files);
+  console.log(files);
   return files;
 }
 
