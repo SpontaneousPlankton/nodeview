@@ -37,17 +37,30 @@ export function generate(request, response) {
     // builtFiles will always only be [serverFile, [routerFiles]]
     createFile(builtFiles[0], request.body.data, request.body.data.cookies, 'server').then(() => {
       // successfully created server file
-      const queue = [];
-      builtFiles[1].forEach((file, ind) => {
-        // queue.push(createFile(file, request.body.data.routers[ind], request.body.data.cookies));
-        queue.push([file, request.body.data.routers[ind], request.body.data.cookies]);
-        // .then(() => {
-        //   response.write(`${file} created`);
-        // }).catch(routerError => {
-        //   response.writeHead(400);
-        //   response.write(`Error creating router: ${routerError}`);
-        // });
-      });
+      // const queue = [];
+      // builtFiles[1].forEach((file, ind) => {
+      //   createFile(file, request.body.data.routers[ind], request.body.data.cookies);
+      //   // queue.push([file, request.body.data.routers[ind], request.body.data.cookies]);
+      //   // .then(() => {
+      //   //   response.write(`${file} created`);
+      //   // }).catch(routerError => {
+      //   //   response.writeHead(400);
+      //   //   response.write(`Error creating router: ${routerError}`);
+      //   // });
+      // });
+      const asyncRun = (ind, filesArr) => {
+        if (ind !== filesArr.length) {
+          createFile(filesArr[ind], request.body.data.routers[ind], request.body.data.cookies).then(() => {
+            asyncRun(ind + 1, filesArr);
+          });
+        } else {
+          return;
+        }
+      };
+      asyncRun(0, builtFiles[1]);
+      // createFile(builtFiles[1][0], request.body.data.routers[0], request.body.data.cookies).then(() => {
+      //   createFile(builtFiles[1][1], request.body.data.routers[1], request.body.data.cookies);
+      // });
 
       // async-each
       // each(queue, createFile, (err, contents) => {
@@ -58,11 +71,11 @@ export function generate(request, response) {
       //   return contents;
       // });
       // Promise all attempt
-      Promise.all(createFile.apply(null, queue[0]), createFile.apply(null, queue[1])).then(() => {
-        response.send('All files created');
-      }).catch(err => {
-        console.log(err);
-      });
+      // Promise.all([createFile(builtFiles[1][0], request.body.data.routers[0], request.body.data.cookies), createFile(builtFiles[1][1], request.body.data.routers[1], request.body.data.cookies)]).then(() => {
+      //   response.send('All files created');
+      // }).catch(err => {
+      //   console.log(err);
+      // });
     }).catch(serverError => {
       console.log(`Error creating server ${serverError}`);
       response.status(400).send(`Error creating server: ${serverError}`);
@@ -93,7 +106,7 @@ export function generate(request, response) {
     console.log(`Problem creating repo on your GitHub: Error: ${error}`);
     response.status(400).send(`Problem creating repo on your GitHub: Error: ${error}`);
   });
-  return response.json(builtFiles);
+  // return response.json(builtFiles);
 }
 
 export function generateFiles(request, response) {
