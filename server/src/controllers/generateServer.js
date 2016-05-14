@@ -2,6 +2,7 @@ import { buildAllFiles } from './expressBuild/buildFiles.js';
 import Config from './../models/config.js';
 import { createRepo, createFile } from './githubController.js';
 import { extend } from './../utils/utils';
+import each from 'async-each';
 
 export function generate(request, response) {
   request.session.files = {
@@ -34,12 +35,12 @@ export function generate(request, response) {
   createRepo(request.body.data).then(() => {
     // separate calls for every file
     // builtFiles will always only be [serverFile, [routerFiles]]
-    console.log('REPO CREATED, NOW CREATE SERVER');
     createFile(builtFiles[0], request.body.data, request.body.data.cookies, 'server').then(() => {
       // successfully created server file
-      console.log('SERVER CREATED, NOW CREATE ROUTERS');
+      const queue = [];
       builtFiles[1].forEach((file, ind) => {
-        createFile(file, request.body.data.routers[ind], request.body.data.cookies);
+        // queue.push(createFile(file, request.body.data.routers[ind], request.body.data.cookies));
+        queue.push([file, request.body.data.routers[ind], request.body.data.cookies]);
         // .then(() => {
         //   response.write(`${file} created`);
         // }).catch(routerError => {
@@ -47,7 +48,23 @@ export function generate(request, response) {
         //   response.write(`Error creating router: ${routerError}`);
         // });
       });
+
+      // async-each
+      // each(queue, createFile, (err, contents) => {
+      //   console.log('something happend');
+      //   if (err) {
+      //     return console.log(err);
+      //   }
+      //   return contents;
+      // });
+      // Promise all attempt
+      Promise.all(createFile.apply(null, queue[0]), createFile.apply(null, queue[1])).then(() => {
+        response.send('All files created');
+      }).catch(err => {
+        console.log(err);
+      });
     }).catch(serverError => {
+      console.log(`Error creating server ${serverError}`);
       response.status(400).send(`Error creating server: ${serverError}`);
     });
     // builtFiles.forEach(file => {
@@ -73,6 +90,7 @@ export function generate(request, response) {
     // successfully created repo
     // response.send(`${request.body.data.appName} created`);
   }).catch((error) => {
+    console.log(`Problem creating repo on your GitHub: Error: ${error}`);
     response.status(400).send(`Problem creating repo on your GitHub: Error: ${error}`);
   });
   return response.json(builtFiles);
