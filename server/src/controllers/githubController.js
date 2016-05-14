@@ -30,11 +30,13 @@ export function createRepo(options) {
   });
 }
 
-export function createFile(file, settings) {
+export function createFile(file, settings, overrideName) {
+  console.log(file);
+  const fileName = overrideName || settings.name;
   const encodedFile = new Buffer(file).toString('base64');
   const options = {
     method: 'PUT',
-    url: `https://api.github.com/repos/${settings.userName}/${settings.appName}/contents/${settings.fileName}`,
+    url: `https://api.github.com/repos/${settings.userName}/${settings.appName}/contents/${fileName}`,
     headers: {
       authorization: 'token TOKEN',
       'content-type': 'application/json',

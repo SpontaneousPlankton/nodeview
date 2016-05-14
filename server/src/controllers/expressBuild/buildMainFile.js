@@ -53,6 +53,7 @@ function addServerListen(name, port) {
 
 export function buildMainFile(fileConfig, userConfig) {
   let file = '';
+  // const expressName = userConfig.serverSettings.expressName;
   const name = userConfig.appName || 'myApp';
   const port = userConfig.serverSettings.port || 8000;
   const routers = userConfig.routers || [];

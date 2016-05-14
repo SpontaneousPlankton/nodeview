@@ -1,7 +1,8 @@
 import { buildAllFiles } from './expressBuild/buildFiles.js';
 import Config from './../models/config.js';
+import { createRepo, createFile } from './githubController.js';
 
-export function generateFiles(request, response) {
+export function generate(request, response) {
   request.session.files = {
     serverJS: {
       type: 'main',
@@ -15,14 +16,30 @@ export function generateFiles(request, response) {
       name: request.body.data.routers,
     };
   }
-  // console.log(request.session.files);
 
+  // copy cookies to body.data
+  request.body.data.userName = request.cookies.user;
+  request.body.data.token = request.cookies.user_session;
   const builtFiles = buildAllFiles(request, response);
   // Send these files to github!
+  // Make repo (naming handled in controller)
+  createRepo(request.body.data);
+  // separate calls for every file
+  // builtFiles will always only be [serverFile, [routerFiles]]
+  builtFiles.forEach(file => {
+    if (!Array.isArray(file)) {
+      createFile(file, request.body.data, 'server.js');
+    } else {
+      file.forEach((routerFile, ind) => {
+        createFile(routerFile, request.body.data.routers[ind]);
+      });
+    }
+  });
+  console.log(builtFiles);
   return response.json(builtFiles);
 }
 
-export function generateServer(request, response) {
+export function generateFiles(request, response) {
   const reqData = request.body.data;
   // console.log(reqData);
   if (!reqData.serverType) {
@@ -30,7 +47,7 @@ export function generateServer(request, response) {
   }
 
   // generate express server
-  return generateFiles(request, response);
+  return generate(request, response);
 }
 
 
