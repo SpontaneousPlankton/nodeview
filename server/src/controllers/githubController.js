@@ -30,13 +30,16 @@ export function createRepo(options) {
   });
 }
 
-export function createFile(file, settings, overrideName) {
-  console.log(file);
+export function createFile(file, settings, userInfo, overrideName) {
+  console.log(settings);
+  console.log(userInfo.userName);
+  console.log(settings.appName);
   const fileName = overrideName || settings.name;
   const encodedFile = new Buffer(file).toString('base64');
+  console.log(fileName);
   const options = {
     method: 'PUT',
-    url: `https://api.github.com/repos/${settings.userName}/${settings.appName}/contents/${fileName}`,
+    url: `https://api.github.com/repos/${userInfo.userName}/${settings.appName}/contents/${fileName}.js`,
     headers: {
       authorization: 'token TOKEN',
       'content-type': 'application/json',
@@ -47,8 +50,8 @@ export function createFile(file, settings, overrideName) {
       message: 'Initial Commit',
       content: encodedFile,
       committer: {
-        name: settings.name,
-        email: settings.email,
+        name: userInfo.userName,
+        email: userInfo.email,
       },
       json: true,
     }),
