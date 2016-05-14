@@ -20,16 +20,24 @@ export function generate(request, response) {
 
   // copy cookies to body.data
   request.body.data.cookies = {};
+  // TODO: remove userInfo parameter
   extend(request.body.data.cookies, request.cookies);
   // EMAIL BUG: fix '@'
+  // copy data to routers
+  request.body.data.routers.forEach(router => {
+    router.appName = request.body.data.appName;
+  });
+  // extend(request.body.data.routers, )
   const builtFiles = buildAllFiles(request, response);
   // Send these files to github!
   // Make repo (naming handled in controller)
   createRepo(request.body.data).then(() => {
     // separate calls for every file
     // builtFiles will always only be [serverFile, [routerFiles]]
+    console.log('REPO CREATED, NOW CREATE SERVER');
     createFile(builtFiles[0], request.body.data, request.body.data.cookies, 'server').then(() => {
       // successfully created server file
+      console.log('SERVER CREATED, NOW CREATE ROUTERS');
       builtFiles[1].forEach((file, ind) => {
         createFile(file, request.body.data.routers[ind], request.body.data.cookies);
         // .then(() => {
