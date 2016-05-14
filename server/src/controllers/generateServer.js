@@ -1,7 +1,6 @@
-import { buildAllFiles } from './expressBuild/buildFiles.js';
-import Config from './../models/config.js';
 import { createRepo, createFile } from './githubController.js';
 import { extend } from './../utils/utils';
+import { buildAllFiles } from '../../build/controllers/expressBuild/buildFiles.js';
 
 export function generate(request, response) {
   request.session.files = {
@@ -69,20 +68,3 @@ export function generateFiles(request, response) {
   // generate express server
   return generate(request, response);
 }
-
-
-export function createConfig(request, response) {
-  const newConfig = new Config({
-    appName: request.body.appName,
-    port: request.body.port,
-    expressName: request.body.expressName,
-    serverType: request.body.serverType,
-  });
-  newConfig.save((err) => {
-    if (err) {
-      return response.status(500).json(err);
-    }
-    return response.json(newConfig);
-  });
-}
-

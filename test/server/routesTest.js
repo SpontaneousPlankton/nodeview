@@ -8,7 +8,7 @@ const supertest = require('supertest');
 import express from 'express';
 import bodyParser from 'body-parser';
 import session from 'express-session';
-import { port } from '../../server/src/config.js';
+import { port } from '../../server/build/config.js';
 import { generateFiles } from '../../server/build/controllers/generateServer';
 
 const server = express();

@@ -1,5 +1,6 @@
 import githubAuth from './../passport/githubAuth';
-import { createConfig, generateFiles } from '../controllers/generateServer';
+import { generateFiles } from '../controllers/generateServer';
+import { createOne } from '../controllers/configController';
 
 import { getUser } from './../models/userController';
 
@@ -20,7 +21,7 @@ module.exports = (app, express) => {
 
   app.get('/api/users', getUser);
 
-  app.post('/config', createConfig);
+  app.post('/config', createOne);
   app.post('/serve', (req, res) => {
     generateFiles(req, res);
   });
