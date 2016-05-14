@@ -1,6 +1,5 @@
 import { buildMainFile } from './buildMainFile.js';
 import { buildRouterFile } from './buildRouterFile.js';
-
 import request from 'request';
 
 export function buildFile(fileConfig, userConfig) {
@@ -39,7 +38,7 @@ export function buildAllFiles(req, res) {
       // }
     }
   }
-  // console.log(files);
+
   return files;
 }
 

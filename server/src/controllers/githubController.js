@@ -12,7 +12,7 @@ export function createRepo(options) {
       'user-agent': 'AppButler',
       'cache-control': 'no-cache',
       'content-type': 'application/json',
-      authorization: 'token TOKEN',
+      authorization: 'token cbe36bee52b94370ba007fa1837841d4d23c1c42',
     },
     body: {
       name: `${options.appName}`,
@@ -38,7 +38,7 @@ export function createFile(file, settings, userInfo, overrideName) {
     method: 'PUT',
     url: `https://api.github.com/repos/${userInfo.user}/${settings.appName}/contents/${fileName}.js`,
     headers: {
-      authorization: 'token TOKEN',
+      authorization: 'token cbe36bee52b94370ba007fa1837841d4d23c1c42',
       'content-type': 'application/json',
       'cache-control': 'no-cache',
       'user-agent': 'AppButler',
