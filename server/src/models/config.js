@@ -11,6 +11,14 @@ const configSchema = new Schema({
     serverSettings: {
       port: String,
     },
+    routers: [{
+      id: String,
+      startPoint: String,
+      endPoints: [{}],
+      editingStartPoint: Boolean,
+      editingName: Boolean,
+      name: String,
+    }],
   },
 });
 
