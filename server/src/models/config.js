@@ -28,3 +28,4 @@ configSchema.plugin(relationship, { relationshipPathName: 'user' });
 
 export default mongoose.model('Config', configSchema);
 
+
