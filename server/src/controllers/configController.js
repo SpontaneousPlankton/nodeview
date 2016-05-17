@@ -8,9 +8,7 @@ export function createOne(request, response) {
     "data.routers": [{
       id: request.body.data.routers[0].id,
       startPoint: request.body.data.routers[0].startPoint,
-      endPoints: request.body.data.routers[0].endPoints,
-      editingStartPoint: request.body.data.routers[0].editingStartPoint,
-      editingName: request.body.data.routers[0].editingName,
+      endpoints: request.body.data.routers[0].endpoints,
       name: request.body.data.routers[0].name,
     }],
   });
