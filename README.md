@@ -77,6 +77,10 @@ See [contributing.md](contributing.md) for contribution and github workflow guid
 ### High Level Architecture
 ![](http://i.imgur.com/oZEjl3d.png?1)
 
+### Database Schema
+Database in MongoDB, using Mongoose
+![](http://i.imgur.com/QIGvmVB.jpg?1)
+
 <hr>
 
 ## API
