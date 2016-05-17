@@ -5,9 +5,8 @@ export function createOne(request, response) {
     "data.serverType": request.body.data.serverType,
     "data.appName": request.body.data.appName,
     "data.serverSettings.port": request.body.data.serverSettings.port,
-    '$ push': { 'data.routers': { '$ each': request.body.routers },
-    },
-  });
+    "data.routers": request.body.data.routers });
+
 
   newConfig.save((err) => {
     if (err) {
@@ -16,3 +15,5 @@ export function createOne(request, response) {
     return response.send(newConfig);
   });
 }
+
+
