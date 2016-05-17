@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-// import relationship from 'mongoose-relationship';
+import relationship from 'mongoose-relationship';
 
 const Schema = mongoose.Schema;
 
