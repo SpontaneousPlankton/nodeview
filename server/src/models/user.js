@@ -11,3 +11,4 @@ export default mongoose.model('User', new Schema({
   id: Number,
   key: String,
 }));
+
