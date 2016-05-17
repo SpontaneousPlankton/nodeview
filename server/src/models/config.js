@@ -15,7 +15,7 @@ const configSchema = new Schema({
     routers: [{
       id: String,
       startPoint: String,
-      endPoints: [{}],
+      endpoints: [{}],
       name: String,
     }],
   },
@@ -28,5 +28,4 @@ configSchema.pre('save', (next) => {
 configSchema.plugin(relationship, { relationshipPathName: 'user' });
 
 export default mongoose.model('Config', configSchema);
-
 
