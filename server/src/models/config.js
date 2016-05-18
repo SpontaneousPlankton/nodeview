@@ -17,6 +17,11 @@ const configSchema = new Schema({
       endpoints: [{}],
       name: String,
     }],
+    github: {
+      repoName: String,
+      privacy: Boolean,
+      description: String,
+    },
   },
 });
 

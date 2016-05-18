@@ -2,7 +2,6 @@ import Config from '../models/config.js';
 import User from '../models/user.js';
 
 export function createOne(request, response) {
-
   User.findOne({ githubID: 'JeremyIR' }, (err, user) => {
     const newConfig = new Config({
       user: user,
@@ -10,6 +9,9 @@ export function createOne(request, response) {
       'data.appName': request.body.data.appName,
       'data.serverSettings.port': request.body.data.serverSettings.port,
       'data.routers': request.body.data.routers,
+      'data.github.repoName': request.body.data.github.repoName,
+      'data.github.privacy': request.body.data.github.privacy,
+      'data.github.description': request.body.data.github.description,
     });
     newConfig.save((err, savedConfig) => {
       if (err) {
@@ -19,3 +21,5 @@ export function createOne(request, response) {
     });
   });
 }
+
+
