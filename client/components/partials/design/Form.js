@@ -2,6 +2,7 @@ import React from 'react';
 import GithubForm from './GithubForm.js';
 import { reduxForm } from 'redux-form';
 import { hashHistory } from 'react-router';
+import ServerCanvas from './ServerCanvas.js';
 
 // Import storage to reset it
 import storage from '../../../storage.js';
@@ -56,6 +57,7 @@ export default class Form extends React.Component {
     submitting: React.PropTypes.bool.isRequired,
     routers: React.PropTypes.array,
     resetState: React.PropTypes.func.isRequired,
+    createPrompt: React.PropTypes.func,
   };
 
   constructor(props) {
@@ -71,7 +73,7 @@ export default class Form extends React.Component {
     const jsonData = {
       data: {
         serverType: formData.serverType,
-        appName: formData.configName,
+        Name: formData.configName,
         serverSettings: {
           port: formData.port,
           expressName: formData.expressName,
@@ -104,6 +106,40 @@ export default class Form extends React.Component {
     .catch(err => console.log('darn:  ', err));
   }
 
+  saveData = (formData) => {
+    const resetState = this.props.resetState;
+    const jsonData = {
+      data: {
+        serverType: formData.serverType,
+        Name: formData.configName,
+        serverSettings: {
+          port: formData.port,
+          expressName: formData.expressName,
+        },
+        routers: this.props.routers,
+        github: {
+          repoName: formData.github.repoName,
+          privacy: formData.github.privacy || false,
+          description: formData.github.description,
+        },
+      },
+    };
+    console.log(jsonData);
+
+    fetch('/config', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(jsonData),
+      credentials: 'same-origin',
+    })
+      .then(() => {
+        alert('files saved');
+      })
+      .catch(err => console.log('darn:  ', err));
+  }
+
   render() {
     const { fields: { configName, port, github }, handleSubmit, submitting } = this.props;
     return (
@@ -128,6 +164,11 @@ export default class Form extends React.Component {
           </div>
         </div>
         <GithubForm {...github} />
+        <button disabled={submitting} onClick={handleSubmit(this.saveData)}
+          name="submitConfig" className="btn btn-submit"
+        >Save Files
+        </button>
+       <br />
         <button disabled={submitting} onClick={handleSubmit(this.sendData)}
           name="submitConfig" className="btn btn-submit"
         >Build Server
