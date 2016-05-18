@@ -3,10 +3,7 @@ const initializeRouter = () => 'var router = require(\'express\').Router();\n\n'
 const generatePaths = (startPoint, endpoints) => {
   let fileString = '';
   endpoints.forEach(end => {
-    let route = end.endpoint;
-    if (route[0] !== '/') {
-      route = `/${route}`;
-    }
+    let route = `${startPoint}${end.endpoint}`;
     // prevent double '// in path'
     route = route.replace(/\/\//i, '/');
     fileString += `\nrouter.get('${route}', function(req, res) {\n\tres.send('Path: ${route}');\n};\n`;

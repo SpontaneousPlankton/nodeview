@@ -2,7 +2,7 @@ const addAppInfo = appDetails => {
   let fileString = '';
 
   fileString += `"name": "${appDetails.appName}",\n` +
-  `\t"description": "${appDetails.github.description}",\n` +
+  `\t"description": "CHANGE DESCRIPTION!!!!!!!!!",\n` +
   `\t"author": "${appDetails.cookies.user}",\n`;
 
   return fileString;
@@ -13,8 +13,7 @@ const addGitDetails = appDetails => {
 
   fileString += `\t"repository": {\n` +
     `\t\t"type": "git",\n` +
-    // `\t\t"url": "https://github.com/${appDetails.cookies.user}/${appDetails.appName}"\n` +
-    `\t\t"url": "https://github.com/${appDetails.cookies.user}/${appDetails.github.repoName}"\n` +
+    `\t\t"url": "https://github.com/${appDetails.cookies.user}/${appDetails.appName}"\n` +
     '\t},\n';
 
   return fileString;
