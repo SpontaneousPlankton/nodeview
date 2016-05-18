@@ -1,11 +1,10 @@
 import mongoose from 'mongoose';
-import relationship from 'mongoose-relationship';
 import User from '../models/user.js';
 
 const Schema = mongoose.Schema;
 
 const configSchema = new Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', childPath: 'githubID' },
+  user: { type: Schema.ObjectId, ref: 'User' },
   data: {
     serverType: String,
     appName: String,
@@ -24,8 +23,6 @@ const configSchema = new Schema({
 configSchema.pre('save', (next) => {
   next();
 });
-
-configSchema.plugin(relationship, { relationshipPathName: 'user' });
 
 export default mongoose.model('Config', configSchema);
 
