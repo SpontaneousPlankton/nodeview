@@ -277,12 +277,17 @@ hr {
 .btn-submit {
   background: #F550A1;
   color: #FFFFFF;
-  margin: 0 auto;
-  width: 100%;
-
 }
+
 .btn-save {
   background: #58C7FF;
+  color: #FFFFFF;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.btn-submit-long {
+  background: #F550A1;
   color: #FFFFFF;
   margin: 0 auto;
   width: 100%;

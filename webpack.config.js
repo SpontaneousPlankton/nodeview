@@ -72,7 +72,7 @@ module.exports = {
           plugins: ['transform-decorators-legacy'],
         }
       },
-       { test: /\.css$/, loader: "style-loader!css-loader" },
+       { test: /\.css$/, loader: 'style-loader!css-loader' },
     ]
   }
 

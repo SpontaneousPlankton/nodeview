@@ -7,7 +7,7 @@ import { hashHistory } from 'react-router';
 // Import storage to reset it
 import storage from '../../../storage.js';
 import { connect } from 'react-redux';
-import '../../../../node_modules/sweetalert/dist/sweetalert.min.js';
+import '../../../../node_modules/sweetalert/lib/sweetalert.js';
 import '../../../../node_modules/sweetalert/dist/sweetalert.css';
 
 export const fields = [
@@ -186,7 +186,7 @@ export default class Form extends React.Component {
         <br />
         </div>
         <button disabled={submitting} onClick={handleSubmit(this.sendData)}
-          name="submitConfig" className="btn btn-submit"
+          name="submitConfig" className="btn btn-submit-long"
         >Build Server
         </button>
       </form>
