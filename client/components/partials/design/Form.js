@@ -142,7 +142,11 @@ export default class Form extends React.Component {
         hashHistory.push(`/success/${obj.user}/${obj.repoName}/`);
       });
     })
-    .catch(err => console.log('darn:  ', err));
+    .catch(err => {
+      err.json().then(newErr => {
+        console.log('Error Fetching:  ', newErr);
+      });
+    });
   }
 
   writeData = (formData) => {

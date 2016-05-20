@@ -24,7 +24,7 @@ export function createOne(request, response) {
 export function getConfigs(request, response) {
   Config.find(({ user: request.cookies.user }), (err, configs) => {
     if (err) {
-      return response.status(404).json(err);
+      return response.status(500).json(err);
     }
     return response.json(configs);
   });
@@ -33,7 +33,7 @@ export function getConfigs(request, response) {
 export function deleteConfig(request, response) {
   Config.findOneAndRemove({ 'data.appName': request.body.data.appName }, (err) => {
     if (err) {
-      return response.status(404).json(err);
+      return response.status(500).json(err);
     }
     // return remaining configs associated with user to update state
     return getConfigs(request, response);
