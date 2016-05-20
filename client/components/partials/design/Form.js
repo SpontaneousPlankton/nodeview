@@ -110,7 +110,7 @@ export default class Form extends React.Component {
       },
     };
 
-    fetch('/serve', {
+    fetch('/api/serve', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -164,7 +164,7 @@ export default class Form extends React.Component {
       },
     };
 
-    fetch('/config', {
+    fetch('/api/config', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
