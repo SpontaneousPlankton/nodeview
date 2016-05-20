@@ -87,9 +87,9 @@ See [contributing.md](contributing.md) for contribution and github workflow guid
 |--------|------------|------------------------------------------------|
 | POST   | api/serve  | Generates a boilerplate and sends it to github |
 | GET    | api/config | Get current user's configs from the database   |
-| POST   | /serve     | Generates a new config                         |
-| POST   | /config    | Saves a user's config to the database          |
-| DELETE | /agi/config| Delete's a user's config                       |
+| POST   | api/serve  | Generates a new config                         |
+| POST   | api/config | Saves a user's config to the database          |
+| DELETE | agi/config | Delete's a user's config                       |
 | POST   | api/login  | Logs in user through Github                    |
 | GET    | api/users  | Get current user from the database             |
 

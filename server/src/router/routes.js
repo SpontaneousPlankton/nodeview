@@ -28,7 +28,7 @@ module.exports = (app, express) => {
   app.get('/api/config', getConfigs);
   app.delete('/api/config', deleteConfig);
 
-  app.post('/config', createOne);
-  app.post('/serve', generateFiles);
+  app.post('/api//config', createOne);
+  app.post('/api/serve', generateFiles);
 };
 
